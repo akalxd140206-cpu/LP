@@ -407,7 +407,7 @@
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
+            entry.target.classList.add("active"); /* ←ここが直っています！ */
             observer.unobserve(entry.target);
           }
         });
@@ -417,6 +417,7 @@
       fadeElements.forEach(el => observer.observe(el));
     });
   </script>
+
 
 </body>
 </html>
