@@ -1,1 +1,422 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiny Très | こだわりの上質な子ども服。フレンチ・シックなデイリーウェア</title>
+  <meta name="description" content="パリの小さな蚤の市で見つけたような、こだわりの上質な子ども服ブランド「Tiny Très（タイニー・トレ）」。着心地が良く、オシャレなお母様に選ばれる、くすみカラーのデイリーウェアとコーディネートをご紹介します。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
 
+  <style>
+    /* ------------------------------
+       Base & Color Palette
+    ------------------------------ */
+    :root {
+      --color-bg: #FDFBF8;       /* 温かみのあるオフホワイト */
+      --color-beige: #E6DED1;    /* ナチュラルなベージュ */
+      --color-green: #A3AFA0;    /* くすんだオリーブグリーン */
+      --color-pink: #E8D5D5;     /* 淡いくすみピンク */
+      --color-text-main: #5C544F; /* 柔らかいチャコールブラウン */
+      --color-text-light: #8C847F;
+      --color-white: #FFFFFF;
+      --font-serif: 'Noto Serif JP', serif;
+      --font-sans: 'Noto Sans JP', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: var(--font-sans);
+      color: var(--color-text-main);
+      line-height: 1.8;
+      background-color: var(--color-bg);
+      letter-spacing: 0.04em;
+    }
+    
+    img { max-width: 100%; height: auto; vertical-align: middle; }
+    a { color: var(--color-text-main); text-decoration: none; transition: 0.3s; }
+    
+    /* アクセシビリティ対応: フォーカスリング */
+    :focus-visible { outline: 2px dashed var(--color-green); outline-offset: 4px; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    /* ------------------------------
+       Animations (JS用)
+    ------------------------------ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+      transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* ------------------------------
+       Components
+    ------------------------------ */
+    .btn {
+      display: inline-block;
+      background-color: var(--color-green);
+      color: var(--color-white);
+      padding: 14px 30px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(163, 175, 160, 0.2);
+      transition: background-color 0.3s, transform 0.2s;
+      text-align: center;
+    }
+    .btn:hover {
+      background-color: #8E9B8A;
+      transform: translateY(-2px);
+    }
+    .btn.pink { background-color: var(--color-pink); color: var(--color-text-main); box-shadow: none; }
+    .btn.pink:hover { background-color: #DBC8C8; }
+
+    .section-title {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      color: var(--color-text-main);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .section-lead {
+      text-align: center;
+      color: var(--color-text-light);
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    /* ------------------------------
+       Layouts
+    ------------------------------ */
+    /* Header */
+    header {
+      background-color: rgba(253, 251, 248, 0.95);
+      backdrop-filter: blur(5px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--color-beige);
+    }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      letter-spacing: 0.1em;
+    }
+    header nav a {
+      font-size: 0.9rem;
+      margin-left: 20px;
+      font-weight: 500;
+    }
+
+    /* Hero */
+    .hero { padding: 80px 0; text-align: center; }
+    .hero-content { max-width: 700px; margin: 0 auto 50px; }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      line-height: 1.4;
+      margin-bottom: 25px;
+      color: var(--color-text-main);
+    }
+    .hero p { font-size: 1.1rem; color: var(--color-text-light); margin-bottom: 40px; }
+    .hero-img {
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(92, 84, 79, 0.05);
+    }
+    .hero-img img { width: 100%; height: 70vh; object-fit: cover; }
+
+    /* Concept */
+    .concept { padding: 100px 0; background-color: var(--color-white); border-radius: 60px 60px 0 0; }
+    .concept-inner { display: flex; align-items: center; gap: 60px; }
+    .concept-text { flex: 1; }
+    .concept-image { flex: 1; text-align: center; }
+    .concept-image img { border-radius: 8px; object-fit: cover; width: 450px; height: 500px; }
+
+    /* Coordinate Section */
+    .coordinate { padding: 100px 0; background-color: var(--color-beige); }
+    .coordinate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 60px;
+    }
+    .coord-card {
+      background: var(--color-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(92, 84, 79, 0.03);
+      transition: 0.3s;
+    }
+    .coord-card:hover { transform: translateY(-5px); }
+    .coord-img-wrap { width: 100%; height: 500px; overflow: hidden; }
+    .coord-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .coord-content { padding: 40px; }
+    .coord-theme {
+      font-size: 0.8rem;
+      color: var(--color-green);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .coord-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    .coord-card p {
+      font-size: 0.95rem;
+      color: var(--color-text-light);
+      margin-bottom: 25px;
+    }
+    .coord-items {
+      border-top: 1px solid #EAE2D8;
+      padding-top: 20px;
+      margin-bottom: 30px;
+    }
+    .coord-items h4 { font-size: 0.9rem; margin-bottom: 10px; font-weight: 500; }
+    .coord-items ul { list-style: none; font-size: 0.9rem; color: var(--color-text-light); }
+    .coord-items li { display: flex; justify-content: space-between; padding: 4px 0; }
+    .coord-items li span.price { color: var(--color-text-main); font-weight: 500; }
+
+    /* Footer */
+    footer {
+      background-color: var(--color-text-main);
+      color: var(--color-white);
+      padding: 80px 0;
+      text-align: center;
+      border-radius: 40px 40px 0 0;
+    }
+    footer a { color: var(--color-white); opacity: 0.8; }
+    footer a:hover { opacity: 1; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .concept-inner { flex-direction: column-reverse; text-align: center; }
+      .section-title { font-size: 1.8rem; }
+      .coordinate-grid { grid-template-columns: 1fr; }
+      .coord-img-wrap { height: 350px; }
+      .coord-content { padding: 25px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header role="banner">
+    <div class="container header-inner">
+      <div class="logo">Tiny Très</div>
+      <nav aria-label="メインナビゲーション">
+        <a href="#coord">コーディネート</a>
+        <a href="#shop" class="btn pink" style="padding: 10px 20px; font-size: 0.8rem;">オンラインショップへ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main">
+    
+    <section class="hero reveal">
+      <div class="container hero-content">
+        <h1>愛しいあの子へ、<br>特別な一着を。</h1>
+        <p>
+          Tiny Très（タイニー・トレ）は、素材とデザインにこだわった、パリの蚤の市で見つけたような上質な子ども服をお届けします。<br>
+          心地よい着心地と、オシャレなデザインで、毎日の生活を少しだけ特別に。
+        </p>
+        <a href="#coord" class="btn">コーディネートを見る</a>
+      </div>
+      <div class="container hero-img">
+        <img src="https://images.unsplash.com/photo-1621643126867-b52b2b3b7e7a?auto=format&fit=crop&q=80&w=1600" alt="Tiny Trèsの服を着て微笑む親子">
+      </div>
+    </section>
+
+    <section class="concept reveal">
+      <div class="container concept-inner">
+        <div class="concept-text">
+          <h2 class="section-title" style="text-align: left;">小さなからだに、<br>やさしいこだわり。</h2>
+          <p>
+            子どもたちの敏感な肌に触れるからこそ、Tiny Trèsはオーガニックコットンやリネンなど、自然由来の素材を厳選しています。<br>
+            何度洗濯しても型崩れしにくく、着れば着るほど肌に馴染む。
+          </p>
+          <p>
+            動き回る子どもたちの邪魔をしない機能性と、お母様が思わず笑顔になるような、洗練されたデザイン。私たちは、一着一着に愛を込めて作っています。
+          </p>
+        </div>
+        <div class="concept-image">
+          <img src="https://images.unsplash.com/photo-1541170750244-8d4e06223594?auto=format&fit=crop&q=80&w=600" alt="ナチュラルなワンピースを着た女の子">
+        </div>
+      </div>
+    </section>
+
+    <section id="coord" class="coordinate">
+      <div class="container">
+        <h2 class="section-title reveal">Tiny Très's Style</h2>
+        <p class="section-lead reveal">この秋、 Tiny Trèsが提案する5つのコーディネート。<br>フレンチ・シックなデイリーウェアと、少し特別なお出かけ着をご紹介します。</p>
+        
+        <div class="coordinate-grid">
+          
+          <article class="coord-card reveal">
+            <div class="coord-img-wrap">
+              <img src="https://images.unsplash.com/photo-1620023471010-092576c9e07f?auto=format&fit=crop&q=80&w=700" alt="リネンのサロペットを着た男の子">
+            </div>
+            <div class="coord-content">
+              <div class="coord-theme">STYLE 01 / Natural Boy</div>
+              <h3>秋の休日は、<br>リネンとコットンの優しさと。</h3>
+              <p>動き回るのが大好きな男の子には、リネンコットンのサロペットを。柔らかい着心地と、落ち着いたオリーブグリーンが、秋の風景に溶け込みます。</p>
+              <div class="coord-items">
+                <h4>着用アイテム</h4>
+                <ul>
+                  <li>リネンコットンサロペット（オリーブ） <span class="price">¥5,800</span></li>
+                  <li>オーガニックコットンTシャツ（アイボリー） <span class="price">¥3,200</span></li>
+                  <li>ニットベレー帽 <span class="price">¥2,900</span></li>
+                </ul>
+              </div>
+              <a href="#" class="btn" style="width: 100%;">このコーディネートを購入する</a>
+            </div>
+          </article>
+          
+          <article class="coord-card reveal" style="transition-delay: 0.1s;">
+            <div class="coord-img-wrap">
+              <img src="https://images.unsplash.com/photo-1601673891401-d00742f150af?auto=format&fit=crop&q=80&w=700" alt="ピンクのワンピースを着た女の子">
+            </div>
+            <div class="coord-content">
+              <div class="coord-theme">STYLE 02 / Chic Girl</div>
+              <h3>くすみピンクで叶える、<br>小さなパリジェンヌスタイル。</h3>
+              <p>淡いくすみピンクのチュニックワンピースに、フリルのブラウスをのぞかせて。お出かけにも、公園遊びにも、どんなシーンでもオシャレを忘れない女の子に。</p>
+              <div class="coord-items">
+                <h4>着用アイテム</h4>
+                <ul>
+                  <li>チュニックワンピース（アッシュピンク） <span class="price">¥6,500</span></li>
+                  <li>フリルカラーブラウス <span class="price">¥4,100</span></li>
+                  <li>リブレギンス（チャコールグレー） <span class="price">¥2,800</span></li>
+                </ul>
+              </div>
+              <a href="#" class="btn" style="width: 100%;">このコーディネートを購入する</a>
+            </div>
+          </article>
+
+          <article class="coord-card reveal">
+            <div class="coord-img-wrap">
+              <img src="https://images.unsplash.com/photo-1601614717192-358057a79e49?auto=format&fit=crop&q=80&w=700" alt="ニットのカーディガンを着た子供">
+            </div>
+            <div class="coord-content">
+              <div class="coord-theme">STYLE 03 / Relax & Play</div>
+              <h3>心地よいニットに包まれて、<br>好奇心いっぱいの冒険へ。</h3>
+              <p>保温性の高いウールとコットンのニットカーディガン。どんなボトムスにも合わせやすいチャコールグレーは、秋から冬にかけての大活躍アイテムです。</p>
+              <div class="coord-items">
+                <h4>着用アイテム</h4>
+                <ul>
+                  <li>ニットカーディガン（チャコール） <span class="price">¥6,200</span></li>
+                  <li>ボーダーロングTシャツ <span class="price">¥3,500</span></li>
+                  <li>コーデュロイパンツ（ベージュ） <span class="price">¥4,800</span></li>
+                </ul>
+              </div>
+              <a href="#" class="btn" style="width: 100%;">このコーディネートを購入する</a>
+            </div>
+          </article>
+          
+          <article class="coord-card reveal" style="transition-delay: 0.1s;">
+            <div class="coord-img-wrap">
+              <img src="https://images.unsplash.com/photo-1602741548682-f8b131804f5e?auto=format&fit=crop&q=80&w=700" alt="チェックのセットアップを着た子供">
+            </div>
+            <div class="coord-content">
+              <div class="coord-theme">STYLE 04 / Classic Outing</div>
+              <h3>チェック柄で決める、<br>少しおすましな特別な日。</h3>
+              <p>上品なグレンチェックのセットアップ。結婚式の参列や、七五三のお参りなど、フォーマルなシーンでも、 Tiny Trèsらしいナチュラルな上品さを。</p>
+              <div class="coord-items">
+                <h4>着用アイテム</h4>
+                <ul>
+                  <li>チェックセットアップ（グレー） <span class="price">¥9,800</span></li>
+                  <li>スタンドカラーブラウス <span class="price">¥4,500</span></li>
+                  <li>レザーローファー <span class="price">¥7,200</span></li>
+                </ul>
+              </div>
+              <a href="#" class="btn" style="width: 100%;">このコーディネートを購入する</a>
+            </div>
+          </article>
+
+          <article class="coord-card reveal">
+            <div class="coord-img-wrap">
+              <img src="https://images.unsplash.com/photo-1577732298718-403d1544a0b3?auto=format&fit=crop&q=80&w=700" alt="ボーダーとデニムを着た子供">
+            </div>
+            <div class="coord-content">
+              <div class="coord-theme">STYLE 05 / French Casual</div>
+              <h3>定番のボーダーとデニムに、<br>洗練された「今」をプラス。</h3>
+              <p>永遠の定番、ボーダーとデニム。 Tiny Trèsのデニムは、驚くほど柔らかく、締め付けない。ほのかに香る天然石鹸の香りで、毎日の着替えが楽しくなります。</p>
+              <div class="coord-items">
+                <h4>着用アイテム</h4>
+                <ul>
+                  <li>プレミアムボーダーTシャツ <span class="price">¥3,800</span></li>
+                  <li>ストレッチデニムパンツ <span class="price">¥5,500</span></li>
+                  <li>カシミアストール（アイボリー） <span class="price">¥8,800</span></li>
+                </ul>
+              </div>
+              <a href="#" class="btn" style="width: 100%;">このコーディネートを購入する</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="reveal" style="text-align: center; margin-top: 80px;">
+           <a href="#" class="btn pink" style="padding: 18px 60px;">すべてのアイテムを見る</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 30px; font-weight: 700;">Tiny Très</h2>
+      <p style="margin-bottom: 40px; font-size: 0.95rem; color: #BBB3AE;">
+        〒150-0000 東京都渋谷区神宮前 0-0-0<br>
+        営業時間：11:00 - 19:00 (火曜定休)
+      </p>
+      <nav style="margin-bottom: 40px;">
+        <a href="#coord">コーディネート</a> | 
+        <a href="#">オンラインショップ</a> | 
+        <a href="#">お問い合わせ</a>
+      </nav>
+      <p style="font-size: 0.8rem; opacity: 0.7;">&copy; 2026 Tiny Très. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const fadeElements = document.querySelectorAll(".reveal");
+      fadeElements.forEach(el => observer.observe(el));
+    });
+  </script>
+
+</body>
+</html>
