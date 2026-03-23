@@ -10,77 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
 
-  <style>
-    /* ------------------------------
-       Base & Color Palette
-    ------------------------------ */
-    :root {
-      --color-bg: #FDFBF8;       /* 温かみのあるオフホワイト */
-      --color-beige: #E6DED1;    /* ナチュラルなベージュ */
-      --color-green: #A3AFA0;    /* くすんだオリーブグリーン */
-      --color-pink: #E8D5D5;     /* 淡いくすみピンク */
-      --color-text-main: #5C544F; /* 柔らかいチャコールブラウン */
-      --color-text-light: #8C847F;
-      --color-white: #FFFFFF;
-      --font-serif: 'Noto Serif JP', serif;
-      --font-sans: 'Noto Sans JP', sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      font-family: var(--font-sans);
-      color: var(--color-text-main);
-      line-height: 1.8;
-      background-color: var(--color-bg);
-      letter-spacing: 0.04em;
-    }
-    
-    img { max-width: 100%; height: auto; vertical-align: middle; }
-    a { color: var(--color-text-main); text-decoration: none; transition: 0.3s; }
-    
-    /* アクセシビリティ対応: フォーカスリング */
-    :focus-visible { outline: 2px dashed var(--color-green); outline-offset: 4px; }
-
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-
-    /* ------------------------------
-       Animations (JS用)
-    ------------------------------ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px) scale(0.98);
-      transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    /* ------------------------------
-       Components
-    ------------------------------ */
-    .btn {
-      display: inline-block;
-      background-color: var(--color-green);
-      color: var(--color-white);
-      padding: 14px 30px;
-      border-radius: 4px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(163, 175, 160, 0.2);
-      transition: background-color 0.3s, transform 0.2s;
-      text-align: center;
-    }
-    .btn:hover {
-      background-color: #8E9B8A;
-      transform: translateY(-2px);
-    }
-    .btn.pink { background-color: var(--color-pink); color: var(--color-text-main); box-shadow: none; }
-    .btn.pink:hover { background-color: #DBC8C8; }
-
     .section-title {
       text-align: center;
       font-family: var(--font-serif);
@@ -217,6 +146,7 @@
       .coord-content { padding: 25px; }
     }
   </style>
+
 </head>
 <body>
 
@@ -395,6 +325,7 @@
       <p style="font-size: 0.8rem; opacity: 0.7;">&copy; 2026 Tiny Très. All rights reserved.</p>
     </div>
   </footer>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const observerOptions = {
@@ -417,8 +348,6 @@
     });
   </script>
 
-
-
-
+  
 </body>
 </html>
